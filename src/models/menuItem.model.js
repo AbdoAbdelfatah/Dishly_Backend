@@ -7,10 +7,7 @@ const menuItemSchema = new mongoose.Schema(
       required: [true, "Menu item name is required"],
       trim: true,
     },
-    description: {
-      type: String,
-      trim: true,
-    },
+    description: { type: String, trim: true },
     price: {
       type: Number,
       required: [true, "Price is required"],
@@ -18,21 +15,22 @@ const menuItemSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["main", "appetizer", "dessert", "drink"],
+      enum: ["meal", "appetizer", "dessert", "drink"],
       required: true,
     },
-    isAvailable: {
-      type: Boolean,
-      default: true,
+    rate:{
+      type: Number,
+      min:0,
+      max:5,
+      default:0
     },
-    imageUrl: {
-      type: String,
-      trim: true,
-    },
+    isAvailable: { type: Boolean, default: true },
+    imagesUrl: { type: String, trim: true },
   },
   { timestamps: true }
 );
 
-menuSchema.index({ category: 1 });
+menuItemSchema.index({ category: 1 });
 
-export default mongoose.models.MenuItem ||mongoose.model("MenuItem", menuSchema);
+export default mongoose.models.MenuItem ||
+  mongoose.model("MenuItem", menuItemSchema);

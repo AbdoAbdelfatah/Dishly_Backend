@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       match: [/^\+?\d{10,15}$/, "Invalid phone number"],
     },
+     isConfirmed: {
+      type: Boolean,
+      default: false,
+    },  
     role: {
       type: String,
       enum: ["customer", "admin", "manager"],

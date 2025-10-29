@@ -1,10 +1,6 @@
-import jwt from "jsonwebtoken";
 import User from "../../DB/models/user.model.js";
+import { verify } from "../utils/jwt.util.js"; 
 
-/**
- * @returns {function} return middleware function
- * @description Check if the user is authenticated or not
- */
 export const auth = () => {
   return async (req, res, next) => {
     // destruct token from headers
@@ -23,7 +19,7 @@ export const auth = () => {
     const originalToken = token.split(" ")[1];
 
     // verify token
-    const data = jwt.verify(originalToken, process.env.LOGIN_SECRET);
+    const data = verify(originalToken);
     // check if token payload has userId
     if (!data?.userId) {
       return next(
