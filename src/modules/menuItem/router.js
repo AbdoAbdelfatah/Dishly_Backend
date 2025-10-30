@@ -1,0 +1,14 @@
+import express from 'express';
+import { MenuItemController } from './controller.js';
+import { auth } from '../../middlewares/authentication.middleware.js';
+import { authorizationMiddleware } from '../../middlewares/authorization.middleware.js';
+import { systemRoles } from '../../utils/system-roles.util.js';
+import { errorHandler } from "../../middlewares/error.middleware.js";
+const router = express.Router();
+const menuItemController = new MenuItemController();
+router.post('/',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),menuItemController.createMenuItem);
+router.get('/',menuItemController.getAllMenuItemsAndOfferMenuItem);
+router.get('/category/:category', menuItemController.getMenuItemsByCategory);
+router.put('/:id',errorHandler(auth()),authorizationMiddleware(systemRoles.ADMIN),menuItemController.updateMenuItem);
+router.delete('/:id',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),menuItemController.deleteMenuItem);
+export default router;

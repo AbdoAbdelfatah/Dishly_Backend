@@ -20,6 +20,15 @@ export class OfferService {
             throw new ErrorClass('Failed to get all offers', 500, error.message, 'OfferService.getAllOffers');
         }
     }
+    async getAllOfferWithMenuItems() {
+        try {
+            const offers = await Offer.find().populate('menuItems').lean();
+            return offers;
+        }
+        catch (error) {
+            throw new ErrorClass('Failed to get all offers with menu items', 500, error.message, 'OfferService.getAllOfferWithMenuItems');
+        }
+    }
     async updateOffer(offerId, updateData) {
         try {
             const offer =  await Offer.findById(offerId);

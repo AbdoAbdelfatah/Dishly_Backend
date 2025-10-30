@@ -1,0 +1,13 @@
+import { auth } from "../../middlewares/authentication.middleware.js";
+import { authorizationMiddleware } from "../../middlewares/authorization.middleware.js";
+import { systemRoles } from "../../utils/system-roles.util.js";
+import { offerController } from "./controller.js";
+import { errorHandler } from "../../middlewares/error.middleware.js";
+import express from "express";
+const router = express.Router();
+const offerCtrl = new offerController();
+router.get('/',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.Customer_ADMIN)),offerCtrl.getAllOffers);
+router.post('/',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),offerCtrl.createOffer);
+router.put('/:id',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),offerCtrl.updateOffer);
+router.delete('/:id',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),offerCtrl.deleteOffer);
+export default router;
