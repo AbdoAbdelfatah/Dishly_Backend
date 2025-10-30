@@ -7,6 +7,7 @@ const offerSchema = new mongoose.Schema(
       required: [true, "Offer title is required"],
       trim: true,
     },
+    imageUrl: { type: String, trim: true }, 
     description: { type: String, trim: true },
     discountPercent: {
       type: Number,

@@ -2,14 +2,16 @@ import { UserService } from "./service.js";
 import { ErrorClass } from "../../utils/error.util.js";
 import { signToken, verify } from "../../utils/jwt.util.js"; 
 import { comparePassword } from "../../utils/hash.util.js";
+import e from "express";
 const userService = new UserService();
 export class UserController {
 
     async registerUser(req, res, next) {
         try{
-            const {fullName,email,password,phone} = req.body;
-            if(!fullName || !email || !password){
-                return next(new ErrorClass('Full name, email and password are required',400,'Validation Error'));
+            const {fullName,email,password,gender,age,phone} = req.body;
+            
+            if(!fullName || !email || !password||!gender||!age){
+                return next(new ErrorClass('Full name, gender, age, email and password are required',400,'Validation Error','user/register'));
             }
             const existingUser = await userService.getUserByEmail(email);
             if(existingUser){
