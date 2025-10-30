@@ -6,7 +6,7 @@ import { errorHandler } from "../../middlewares/error.middleware.js";
 import express from "express";
 const router = express.Router();
 const offerCtrl = new offerController();
-router.get('/',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.Customer_ADMIN)),offerCtrl.getAllOffers);
+router.get('/',offerCtrl.getAllOffers);
 router.post('/',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),offerCtrl.createOffer);
 router.put('/:id',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),offerCtrl.updateOffer);
 router.delete('/:id',errorHandler(auth()),errorHandler(authorizationMiddleware(systemRoles.ADMIN)),offerCtrl.deleteOffer);

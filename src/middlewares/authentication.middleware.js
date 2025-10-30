@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
-import { verify } from "../utils/jwt.util.js"; 
+import { verify } from "../utils/jwt.util.js";
+import { ErrorClass } from "../utils/error.util.js";
 
 export const auth = () => {
   return async (req, res, next) => {
